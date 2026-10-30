@@ -1,0 +1,4 @@
+bitsandbytes==0.49.0
+torch==2.9.1
+# autoawq
+

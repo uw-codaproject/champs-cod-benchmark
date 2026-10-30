@@ -1,0 +1,906 @@
+data:
+  root_dir: data/CHAMPS_de_identified_data_new
+  narrative_file: CHAMPS_deid_verbal_autopsy.csv
+  decode_file: CHAMPS_deid_decode_results.csv
+  demographics_file: CHAMPS_deid_basic_demographics.csv
+  structured_subset_file: outputs/structured_subset.json
+  mits_lab_file: CHAMPS_deid_lab_results.csv
+  mits_tac_file: CHAMPS_deid_tac_results.csv
+  id_column: champs_deid
+  narrative_column: id10476_deid
+  stratify_column: UC_champs_group_desc
+  label_schema: detailed
+  label_schemas:
+    detailed:
+      label_column: Underlying_Cause
+      immediate_label_column: Immediate_COD
+      comorbidity_columns:
+        - Morbid_Condition_01
+        - Morbid_Condition_02
+        - Morbid_Condition_03
+        - Morbid_Condition_04
+        - Morbid_Condition_05
+        - Morbid_Condition_06
+        - Morbid_Condition_07
+        - Morbid_Condition_08
+      map_icd_codes: true
+    group:
+      label_column: UC_champs_group_desc
+      immediate_label_column: IC_champs_group_desc
+      comorbidity_columns:
+        - Morbid_Cond_01_champs_group_desc
+        - Morbid_Cond_02_champs_group_desc
+        - Morbid_Cond_03_champs_group_desc
+        - Morbid_Cond_04_champs_group_desc
+        - Morbid_Cond_05_champs_group_desc
+        - Morbid_Cond_06_champs_group_desc
+        - Morbid_Cond_07_champs_group_desc
+        - Morbid_Cond_08_champs_group_desc
+      map_icd_codes: false
+  age_group_column: age_group
+  include_age_groups:
+    - Infant (28 days to less than 12 months)
+    - Child (12 months to less than 60 Months)
+  age_group_keywords: null
+  age_group_required: true
+  clinical_abstraction_dir: ClinicalAbstraction/ChildAbst
+  clinical_abstraction_glob: "*.csv"
+  clinical_abstraction_case_id_col: champs_deid
+  clinical_abstraction_text_cols: null
+  text_min_chars: 30
+  max_samples: null
+  val_size: 0
+  test_size: 0.2
+  random_seed: 31
+  
+  lab_test_map:
+    # Blood microbiology — Gram stain findings (mapped from CHAMPS vocabulary)
+    bld_CH00272_ch00165: "Blood microbiology — Gram stain finding present: GPC singles"
+    bld_CH00272_ch00165_2: "Blood microbiology — Gram stain finding present: GPC singles, repeat/second record"
+    bld_CH00272_ch00178: "Blood microbiology — Gram stain finding present: GPR"
+    bld_CH00272_ch00182: "Blood microbiology — Gram stain finding present: GPC chains"
+    bld_CH00272_ch00182_2: "Blood microbiology — Gram stain finding present: GPC chains, repeat/second record"
+    bld_CH00272_ch00183: "Blood microbiology — Gram stain finding present: GPC clusters"
+    bld_CH00272_ch00184: "Blood microbiology — Gram stain finding present: GPDC"
+    bld_CH00272_ch00185: "Blood microbiology — Gram stain finding present: GNC"
+    bld_CH00272_ch00186: "Blood microbiology — Gram stain finding present: GNDC"
+    bld_CH00272_ch00207: "Blood microbiology — Gram stain finding present: Yeasts and other fungal elements"
+    bld_CH00272_ch00208: "Blood microbiology — Gram stain finding present: GNCB"
+    bld_CH00272_ch00209: "Blood microbiology — Gram stain finding present: GNR"
+    bld_CH00272_ch00209_2: "Blood microbiology — Gram stain finding present: GNR, repeat/second record"
+
+    # Blood microbiology — Culture organisms (mapped from CHAMPS vocabulary)
+    bld_CH00603_CH00158: "Blood microbiology — Culture organism detected: Klebsiella pneumoniae"
+    bld_CH00603_CH00160: "Blood microbiology — Culture organism detected: Candida albicans"
+    bld_CH00603_CH00163: "Blood microbiology — Culture organism detected: Escherichia coli"
+    bld_CH00603_CH00166: "Blood microbiology — Culture organism detected: Haemophilus influenzae"
+    bld_CH00603_CH00169: "Blood microbiology — Culture organism detected: Proteus mirabilis"
+    bld_CH00603_CH00170: "Blood microbiology — Culture organism detected: Pseudomonas aeruginosa"
+    bld_CH00603_CH00171: "Blood microbiology — Culture organism detected: Salmonella Paratyphi A"
+    bld_CH00603_CH00172: "Blood microbiology — Culture organism detected: Salmonella Typhi"
+    bld_CH00603_CH00173: "Blood microbiology — Culture organism detected: Staphylococcus aureus"
+    bld_CH00603_CH00174: "Blood microbiology — Culture organism detected: Streptococcus pneumoniae"
+    bld_CH00603_CH00177: "Blood microbiology — Culture organism detected: Burkholderia pseudomallei"
+    bld_CH00603_CH00179: "Blood microbiology — Culture organism detected: Listeria monocytogenes"
+    bld_CH00603_CH00190: "Blood microbiology — Culture organism detected: Coagulase-negative Staphylococci"
+    bld_CH00603_CH00191: "Blood microbiology — Culture organism detected: Staphylococcus epidermidis"
+    bld_CH00603_CH00194: "Blood microbiology — Culture organism detected: Streptococcus agalactiae"
+    bld_CH00603_CH00195: "Blood microbiology — Culture organism detected: Streptococcus pyogenes"
+    bld_CH00603_CH00196: "Blood microbiology — Culture organism detected: Acinetobacter baumannii"
+    bld_CH00603_CH00197: "Blood microbiology — Culture organism detected: Enterococcus faecalis"
+    bld_CH00603_CH00212: "Blood microbiology — Culture organism detected: Enterococcus faecium"
+    bld_CH00603_CH00214: "Blood microbiology — Culture organism detected: Streptococcus suis"
+    bld_CH00603_CH00216: "Blood microbiology — Culture organism detected: Other"
+    bld_CH00603_CH00288: "Blood microbiology — Culture organism detected: Serratia marcescens"
+    bld_CH00603_CH00312: "Blood microbiology — Culture organism detected: Citrobacter freundii"
+    bld_CH00603_CH00323: "Blood microbiology — Culture organism detected: Enterobacter cloacae"
+    bld_CH00603_CH01739: "Blood microbiology — Culture organism detected: Streptococcus dysgalactiae"
+    bld_CH00603_CH01740: "Blood microbiology — Culture organism detected: Streptococcus mitis"
+    bld_CH00603_CH01741: "Blood microbiology — Culture organism detected: Streptococcus salivarius"
+    bld_CH00603_CH01742: "Blood microbiology — Culture organism detected: Streptococcus anginosus"
+    bld_CH00603_CH01859: "Blood microbiology — Culture organism detected: Streptococcus gallolyticus"
+    bld_CH00603_CH01860: "Blood microbiology — Culture organism detected: Streptococcus bovis"
+    bld_CH00603_CH01861: "Blood microbiology — Culture organism detected: Streptococcus infantarius"
+    bld_CH00603_CH01862: "Blood microbiology — Culture organism detected: Streptococcus equinus"
+    bld_CH00603_CH01863: "Blood microbiology — Culture organism detected: Streptococcus alactolyticus"
+    bld_CH00603_CH01864: "Blood microbiology — Culture organism detected: Streptococcus lutetiensis"
+    bld_CH00603_CH01865: "Blood microbiology — Culture organism detected: Streptococcus spp."
+    bld_CH00603_CH02294: "Blood microbiology — Culture organism detected: Indeterminate Organism Identification"
+    # Blood microbiology — Subculture organisms (mapped from CHAMPS vocabulary)
+    bld_CH00604_CH00158: "Blood microbiology — Subculture organism detected: Klebsiella pneumoniae"
+    bld_CH00604_CH00160: "Blood microbiology — Subculture organism detected: Candida albicans"
+    bld_CH00604_CH00163: "Blood microbiology — Subculture organism detected: Escherichia coli"
+    bld_CH00604_CH00166: "Blood microbiology — Subculture organism detected: Haemophilus influenzae"
+    bld_CH00604_CH00168: "Blood microbiology — Subculture organism detected: Neisseria meningitidis"
+    bld_CH00604_CH00169: "Blood microbiology — Subculture organism detected: Proteus mirabilis"
+    bld_CH00604_CH00170: "Blood microbiology — Subculture organism detected: Pseudomonas aeruginosa"
+    bld_CH00604_CH00171: "Blood microbiology — Subculture organism detected: Salmonella Paratyphi A"
+    bld_CH00604_CH00172: "Blood microbiology — Subculture organism detected: Salmonella Typhi"
+    bld_CH00604_CH00173: "Blood microbiology — Subculture organism detected: Staphylococcus aureus"
+    bld_CH00604_CH00174: "Blood microbiology — Subculture organism detected: Streptococcus pneumoniae"
+    bld_CH00604_CH00175: "Blood microbiology — Subculture organism detected: Streptococcus meningitidis"
+    bld_CH00604_CH00177: "Blood microbiology — Subculture organism detected: Burkholderia pseudomallei"
+    bld_CH00604_CH00179: "Blood microbiology — Subculture organism detected: Listeria monocytogenes"
+    bld_CH00604_CH00194: "Blood microbiology — Subculture organism detected: Streptococcus agalactiae"
+    bld_CH00604_CH00195: "Blood microbiology — Subculture organism detected: Streptococcus pyogenes"
+    bld_CH00604_CH00198: "Blood microbiology — Subculture organism detected: Streptococcus viridans"
+    bld_CH00604_CH00202: "Blood microbiology — Subculture organism detected: Enterobacter aerogenes"
+    bld_CH00604_CH00212: "Blood microbiology — Subculture organism detected: Enterococcus faecium"
+    bld_CH00604_CH00214: "Blood microbiology — Subculture organism detected: Streptococcus suis"
+    bld_CH00604_CH00216: "Blood microbiology — Subculture organism detected: Other"
+    bld_CH00604_CH00288: "Blood microbiology — Subculture organism detected: Serratia marcescens"
+    bld_CH00604_CH00312: "Blood microbiology — Subculture organism detected: Citrobacter freundii"
+    bld_CH00604_CH00323: "Blood microbiology — Subculture organism detected: Enterobacter cloacae"
+    bld_CH00604_CH01407: "Blood microbiology — Subculture organism detected: Enterobacter spp."
+    bld_CH00604_CH01739: "Blood microbiology — Subculture organism detected: Streptococcus dysgalactiae"
+    bld_CH00604_CH01740: "Blood microbiology — Subculture organism detected: Streptococcus mitis"
+    bld_CH00604_CH01860: "Blood microbiology — Subculture organism detected: Streptococcus bovis"
+    bld_CH00604_CH01861: "Blood microbiology — Subculture organism detected: Streptococcus infantarius"
+    bld_CH00604_CH01862: "Blood microbiology — Subculture organism detected: Streptococcus equinus"
+    bld_CH00604_CH01864: "Blood microbiology — Subculture organism detected: Streptococcus lutetiensis"
+    bld_CH00604_CH01865: "Blood microbiology — Subculture organism detected: Streptococcus spp."
+    # CSF microbiology — Gram stain findings (mapped from CHAMPS vocabulary)
+    csf_CH00272_ch00165: "CSF microbiology — Gram stain finding present: GPC singles"
+    csf_CH00272_ch00165_2: "CSF microbiology — Gram stain finding present: GPC singles, repeat/second record"
+    csf_CH00272_ch00178: "CSF microbiology — Gram stain finding present: GPR"
+    csf_CH00272_ch00182: "CSF microbiology — Gram stain finding present: GPC chains"
+    csf_CH00272_ch00182_2: "CSF microbiology — Gram stain finding present: GPC chains, repeat/second record"
+    csf_CH00272_ch00183: "CSF microbiology — Gram stain finding present: GPC clusters"
+    csf_CH00272_ch00184: "CSF microbiology — Gram stain finding present: GPDC"
+    csf_CH00272_ch00184_2: "CSF microbiology — Gram stain finding present: GPDC, repeat/second record"
+    csf_CH00272_ch00185: "CSF microbiology — Gram stain finding present: GNC"
+    csf_CH00272_ch00186: "CSF microbiology — Gram stain finding present: GNDC"
+    csf_CH00272_ch00207: "CSF microbiology — Gram stain finding present: Yeasts and other fungal elements"
+    csf_CH00272_ch00208: "CSF microbiology — Gram stain finding present: GNCB"
+    csf_CH00272_ch00209: "CSF microbiology — Gram stain finding present: GNR"
+    csf_CH00272_ch00209_2: "CSF microbiology — Gram stain finding present: GNR, repeat/second record"
+    csf_CH00272_CH00216: "CSF microbiology — Gram stain finding present: Other"
+    csf_CH00272_CH01674: "CSF microbiology — Gram stain finding present: Polymorphonuclear cells present"
+    # CSF microbiology — Culture organisms (mapped from CHAMPS vocabulary)
+    csf_CH00603_CH00158: "CSF microbiology — Culture organism detected: Klebsiella pneumoniae"
+    csf_CH00603_CH00159: "CSF microbiology — Culture organism detected: Bacillus subtilis"
+    csf_CH00603_CH00160: "CSF microbiology — Culture organism detected: Candida albicans"
+    csf_CH00603_CH00163: "CSF microbiology — Culture organism detected: Escherichia coli"
+    csf_CH00603_CH00164: "CSF microbiology — Culture organism detected: Aerococcus viridans"
+    csf_CH00603_CH00169: "CSF microbiology — Culture organism detected: Proteus mirabilis"
+    csf_CH00603_CH00170: "CSF microbiology — Culture organism detected: Pseudomonas aeruginosa"
+    csf_CH00603_CH00171: "CSF microbiology — Culture organism detected: Salmonella Paratyphi A"
+    csf_CH00603_CH00172: "CSF microbiology — Culture organism detected: Salmonella Typhi"
+    csf_CH00603_CH00173: "CSF microbiology — Culture organism detected: Staphylococcus aureus"
+    csf_CH00603_CH00174: "CSF microbiology — Culture organism detected: Streptococcus pneumoniae"
+    csf_CH00603_CH00175: "CSF microbiology — Culture organism detected: Streptococcus meningitidis"
+    csf_CH00603_CH00177: "CSF microbiology — Culture organism detected: Burkholderia pseudomallei"
+    csf_CH00603_CH00190: "CSF microbiology — Culture organism detected: Coagulase-negative Staphylococci"
+    csf_CH00603_CH00194: "CSF microbiology — Culture organism detected: Streptococcus agalactiae"
+    csf_CH00603_CH00195: "CSF microbiology — Culture organism detected: Streptococcus pyogenes"
+    csf_CH00603_CH00197: "CSF microbiology — Culture organism detected: Enterococcus faecalis"
+    csf_CH00603_CH00214: "CSF microbiology — Culture organism detected: Streptococcus suis"
+    csf_CH00603_CH00216: "CSF microbiology — Culture organism detected: Other"
+    csf_CH00603_CH00288: "CSF microbiology — Culture organism detected: Serratia marcescens"
+    csf_CH00603_CH00312: "CSF microbiology — Culture organism detected: Citrobacter freundii"
+    csf_CH00603_CH00323: "CSF microbiology — Culture organism detected: Enterobacter cloacae"
+    csf_CH00603_CH01739: "CSF microbiology — Culture organism detected: Streptococcus dysgalactiae"
+    csf_CH00603_CH01740: "CSF microbiology — Culture organism detected: Streptococcus mitis"
+    csf_CH00603_CH01859: "CSF microbiology — Culture organism detected: Streptococcus gallolyticus"
+    csf_CH00603_CH01860: "CSF microbiology — Culture organism detected: Streptococcus bovis"
+    csf_CH00603_CH01861: "CSF microbiology — Culture organism detected: Streptococcus infantarius"
+    csf_CH00603_CH01862: "CSF microbiology — Culture organism detected: Streptococcus equinus"
+    csf_CH00603_CH01864: "CSF microbiology — Culture organism detected: Streptococcus lutetiensis"
+    csf_CH00603_CH01865: "CSF microbiology — Culture organism detected: Streptococcus spp."
+    csf_CH00603_CH02294: "CSF microbiology — Culture organism detected: Indeterminate Organism Identification"
+    # CSF microbiology — Subculture organisms (mapped from CHAMPS vocabulary)
+    csf_CH00604_CH00158: "CSF microbiology — Subculture organism detected: Klebsiella pneumoniae"
+    csf_CH00604_CH00159: "CSF microbiology — Subculture organism detected: Bacillus subtilis"
+    csf_CH00604_CH00160: "CSF microbiology — Subculture organism detected: Candida albicans"
+    csf_CH00604_CH00163: "CSF microbiology — Subculture organism detected: Escherichia coli"
+    csf_CH00604_CH00164: "CSF microbiology — Subculture organism detected: Aerococcus viridans"
+    csf_CH00604_CH00169: "CSF microbiology — Subculture organism detected: Proteus mirabilis"
+    csf_CH00604_CH00170: "CSF microbiology — Subculture organism detected: Pseudomonas aeruginosa"
+    csf_CH00604_CH00171: "CSF microbiology — Subculture organism detected: Salmonella Paratyphi A"
+    csf_CH00604_CH00172: "CSF microbiology — Subculture organism detected: Salmonella Typhi"
+    csf_CH00604_CH00173: "CSF microbiology — Subculture organism detected: Staphylococcus aureus"
+    csf_CH00604_CH00174: "CSF microbiology — Subculture organism detected: Streptococcus pneumoniae"
+    csf_CH00604_CH00175: "CSF microbiology — Subculture organism detected: Streptococcus meningitidis"
+    csf_CH00604_CH00177: "CSF microbiology — Subculture organism detected: Burkholderia pseudomallei"
+    csf_CH00604_CH00187: "CSF microbiology — Subculture organism detected: Streptococcus pneumoniae/mitis group"
+    csf_CH00604_CH00190: "CSF microbiology — Subculture organism detected: Coagulase-negative Staphylococci"
+    csf_CH00604_CH00194: "CSF microbiology — Subculture organism detected: Streptococcus agalactiae"
+    csf_CH00604_CH00212: "CSF microbiology — Subculture organism detected: Enterococcus faecium"
+    csf_CH00604_CH00214: "CSF microbiology — Subculture organism detected: Streptococcus suis"
+    csf_CH00604_CH00216: "CSF microbiology — Subculture organism detected: Other"
+    csf_CH00604_CH00288: "CSF microbiology — Subculture organism detected: Serratia marcescens"
+    csf_CH00604_CH00312: "CSF microbiology — Subculture organism detected: Citrobacter freundii"
+    csf_CH00604_CH00323: "CSF microbiology — Subculture organism detected: Enterobacter cloacae"
+    csf_CH00604_CH01407: "CSF microbiology — Subculture organism detected: Enterobacter spp."
+    csf_CH00604_CH01739: "CSF microbiology — Subculture organism detected: Streptococcus dysgalactiae"
+    csf_CH00604_CH01740: "CSF microbiology — Subculture organism detected: Streptococcus mitis"
+    csf_CH00604_CH01860: "CSF microbiology — Subculture organism detected: Streptococcus bovis"
+    csf_CH00604_CH01861: "CSF microbiology — Subculture organism detected: Streptococcus infantarius"
+    csf_CH00604_CH01862: "CSF microbiology — Subculture organism detected: Streptococcus equinus"
+    csf_CH00604_CH01865: "CSF microbiology — Subculture organism detected: Streptococcus spp."
+    csf_CH00604_CH02294: "CSF microbiology — Subculture organism detected: Indeterminate Organism Identification"
+    # Malaria — Rapid test species calls (mapped from CHAMPS vocabulary)
+    Mal_rapid_CH00273: "Malaria — Rapid diagnostic test overall result (positive/negative/indeterminate)"
+    Mal_rapid_CH00273_CH00593: "Malaria — Rapid test species detected: P. falciparum"
+    Mal_rapid_CH00273_CH00598: "Malaria — Rapid test species detected: Undetermined Species"
+    Mal_thick_CH00274: "Malaria — Thick smear microscopy overall result (positive/negative/indeterminate)"
+    Mal_thick_CH00274_CH00593: "Malaria — Thick smear species detected: code CH00593 (see CHAMPS vocabulary)"
+    Mal_thick_CH00274_CH00593_qty: "Malaria — Thick smear parasite density for species code CH00593 (parasites/µL)"
+    Mal_thick_CH00274_CH00596: "Malaria — Thick smear species detected: code CH00596 (see CHAMPS vocabulary)"
+    Mal_thick_CH00274_CH00596_qty: "Malaria — Thick smear parasite density for species code CH00596 (parasites/µL)"
+    Mal_thin_CH00275: "Malaria — Thin smear microscopy overall result (positive/negative/indeterminate)"
+    Mal_thin_CH00275_CH00593: "Malaria — Thin smear species detected: code CH00593 (see CHAMPS vocabulary)"
+    Mal_thin_CH00275_CH00593_qty: "Malaria — Thin smear parasite density for species code CH00593 (parasites/µL)"
+    # =========================
+    # TB testing
+    # =========================
+    TB_CH00278: "Tuberculosis — PCR overall result (specimen-unspecified/general field)"
+    TB_lung_CH00278: "Tuberculosis — Lung PCR result (positive/negative/indeterminate)"
+    TB_stool_CH00278: "Tuberculosis — Stool PCR result (positive/negative/indeterminate)"
+    TB_rf_lung_CH00279: "Tuberculosis — Lung PCR for rifampin resistance marker (positive/negative/indeterminate)"
+    TB_rf_stool_CH00279: "Tuberculosis — Stool PCR for rifampin resistance marker (positive/negative/indeterminate)"
+
+  tac_assay_map:
+    # NOTE: TAC values reflect TAC platform detection results for the listed target.
+    # Label format: "<Specimen> TAC PCR: <Pathogen name> (<assay code>)"
+    # =========================
+    # Blood TAQ (TAC)
+    # =========================
+    bld_ABAU_1: "Blood TAC PCR: Acinetobacter baumannii (ABAU_1)"
+    bld_ADEV_1: "Blood TAC PCR: Adenovirus (ADEV_1)"
+    bld_BART_1: "Blood TAC PCR: Bartonella species (BART_1)"
+    bld_BRUC_1: "Blood TAC PCR: Brucella species (BRUC_1)"
+    bld_BUPS_1: "Blood TAC PCR: Burkholderia pseudomallei (BUPS_1)"
+    bld_CAAL_1: "Blood TAC PCR: Candida albicans (CAAL_1)"
+    bld_CCHF_1: "Blood TAC PCR: Crimean-Congo hemorrhagic fever virus (CCHF_1)"
+    bld_CHIC_1: "Blood TAC PCR: Chikungunya virus (CHIC_1)"
+    bld_COBU_1: "Blood TAC PCR: Coxiella burnetii (COBU_1)"
+    bld_CRNG_1: "Blood TAC PCR: Cryptococcus neoformans/gattii (CRNG_1)"
+    bld_CYMV_1: "Blood TAC PCR: Cytomegalovirus (CYMV_1)"
+    bld_DENV_1: "Blood TAC PCR: Dengue virus (pan) (DENV_1)"
+    bld_ECSH_1: "Blood TAC PCR: Escherichia coli / Shigella (uidA) (ECSH_1)"
+    bld_ENFC_1: "Blood TAC PCR: Enterococcus faecalis (ENFC_1)"
+    bld_ENFM_1: "Blood TAC PCR: Enterococcus faecium (ENFM_1)"
+    bld_ENTV_4: "Blood TAC PCR: Enterovirus (ENTV_4)"
+    bld_GAST_2: "Blood TAC PCR: Group A Streptococcus (GAST_2)"
+    bld_GBST_1: "Blood TAC PCR: Group B Streptococcus (GBST_1)"
+    bld_HEPE_1: "Blood TAC PCR: Hepatitis E virus (HEPE_1)"
+    bld_HFLU_1: "Blood TAC PCR: Haemophilus influenzae (pattern/typing) (HFLU_1)"
+    bld_HIAT_1: "Blood TAC PCR: Haemophilus influenzae (hpd3 target) (HIAT_1)"
+    bld_HITB_2: "Blood TAC PCR: Haemophilus influenzae type B (HITB_2)"
+    bld_HPEV_1: "Blood TAC PCR: Parechovirus (HPEV_1)"
+    bld_HSV1_1: "Blood TAC PCR: Herpes simplex virus 1 (HSV1_1)"
+    bld_HSV2_1: "Blood TAC PCR: Herpes simplex virus 2 (HSV2_1)"
+    bld_JENV_1: "Blood TAC PCR: Japanese encephalitis virus (JENV_1)"
+    bld_KLPN_1: "Blood TAC PCR: Klebsiella pneumoniae (KLPN_1)"
+    bld_LASS_1: "Blood TAC PCR: Arenavirus/Lassa fever pattern interpretation (LASS_1)"
+    bld_LAVA_1: "Blood TAC PCR: Lassa fever virus target 1 (LAVA_1)"
+    bld_LAVB_1: "Blood TAC PCR: Lassa fever virus target 2 (LAVB_1)"
+    bld_LAVP_1: "Blood TAC PCR: Pan arenavirus target (LAVP_1)"
+    bld_LEPT_1: "Blood TAC PCR: Leptospira (pan-serovar) (LEPT_1)"
+    bld_LIMO_1: "Blood TAC PCR: Listeria monocytogenes (LIMO_1)"
+    bld_MEVS_1: "Blood TAC PCR: Measles virus (MEVS_1)"
+    bld_MOCA_1: "Blood TAC PCR: Moraxella catarrhalis (MOCA_1)"
+    bld_MUMP_1: "Blood TAC PCR: Mumps virus (MUMP_1)"
+    bld_MYTB_1: "Blood TAC PCR: Mycobacterium tuberculosis (MYTB_1)"
+    bld_NEGO_1: "Blood TAC PCR: Neisseria gonorrhoeae (NEGO_1)"
+    bld_NIPV_1: "Blood TAC PCR: Nipah virus (NIPV_1)"
+    bld_NMEN_1: "Blood TAC PCR: Neisseria meningitidis (NMEN_1)"
+    bld_ORTS_1: "Blood TAC PCR: Orientia tsutsugamushi (ORTS_1)"
+    bld_PARV_1: "Blood TAC PCR: Parvovirus B19 (PARV_1)"
+    bld_PLFA_1: "Blood TAC PCR: Plasmodium falciparum (PLFA_1)"
+    bld_PLVI_1: "Blood TAC PCR: Plasmodium vivax (PLVI_1)"
+    bld_PSAE_1: "Blood TAC PCR: Pseudomonas aeruginosa (PSAE_1)"
+    bld_RICK_1: "Blood TAC PCR: Rickettsia species (RICK_1)"
+    bld_RIVF_1: "Blood TAC PCR: Rift Valley fever virus (RIVF_1)"
+    bld_RUBV_2: "Blood TAC PCR: Rubella virus (RUBV_2)"
+    bld_SALM_1: "Blood TAC PCR: Salmonella species pattern interpretation (SALM_1)"
+    bld_SALS_1: "Blood TAC PCR: Salmonella species (SALS_1)"
+    bld_SAPA_1: "Blood TAC PCR: Salmonella Paratyphi A (SAPA_1)"
+    bld_SATY_1: "Blood TAC PCR: Salmonella Typhi (SATY_1)"
+    bld_STAU_2: "Blood TAC PCR: Staphylococcus aureus (STAU_2)"
+    bld_STPN_2: "Blood TAC PCR: Streptococcus pneumoniae (STPN_2)"
+    bld_STSU_1: "Blood TAC PCR: Streptococcus suis (STSU_1)"
+    bld_TOXO_1: "Blood TAC PCR: Toxoplasma gondii (TOXO_1)"
+    bld_TRPA_1: "Blood TAC PCR: Treponema pallidum (TRPA_1)"
+    bld_URUP_1: "Blood TAC PCR: Ureaplasma species (URUP_1)"
+    bld_VAZV_1: "Blood TAC PCR: Varicella zoster virus (VAZV_1)"
+    bld_WENV_1: "Blood TAC PCR: West Nile virus (WENV_1)"
+    bld_YEFV_1: "Blood TAC PCR: Yellow fever virus (YEFV_1)"
+    bld_YERS_1: "Blood TAC PCR: Yersinia species (YERS_1)"
+    bld_ZIKA_1: "Blood TAC PCR: Zika virus (ZIKA_1)"
+    # =========================
+    # Blood spun TAQ (TAC)
+    # =========================
+    # (Same pathogens as blood; specimen differs)
+    bld_sp_ABAU_1: "Spun blood TAC PCR: Acinetobacter baumannii (ABAU_1)"
+    bld_sp_ADEV_1: "Spun blood TAC PCR: Adenovirus (ADEV_1)"
+    bld_sp_BART_1: "Spun blood TAC PCR: Bartonella species (BART_1)"
+    bld_sp_BRUC_1: "Spun blood TAC PCR: Brucella species (BRUC_1)"
+    bld_sp_BUPS_1: "Spun blood TAC PCR: Burkholderia pseudomallei (BUPS_1)"
+    bld_sp_CAAL_1: "Spun blood TAC PCR: Candida albicans (CAAL_1)"
+    bld_sp_CCHF_1: "Spun blood TAC PCR: Crimean-Congo hemorrhagic fever virus (CCHF_1)"
+    bld_sp_CHIC_1: "Spun blood TAC PCR: Chikungunya virus (CHIC_1)"
+    bld_sp_COBU_1: "Spun blood TAC PCR: Coxiella burnetii (COBU_1)"
+    bld_sp_CRNG_1: "Spun blood TAC PCR: Cryptococcus neoformans/gattii (CRNG_1)"
+    bld_sp_CYMV_1: "Spun blood TAC PCR: Cytomegalovirus (CYMV_1)"
+    bld_sp_DENV_1: "Spun blood TAC PCR: Dengue virus (pan) (DENV_1)"
+    bld_sp_ECSH_1: "Spun blood TAC PCR: Escherichia coli / Shigella (uidA) (ECSH_1)"
+    bld_sp_ENFC_1: "Spun blood TAC PCR: Enterococcus faecalis (ENFC_1)"
+    bld_sp_ENFM_1: "Spun blood TAC PCR: Enterococcus faecium (ENFM_1)"
+    bld_sp_ENTV_4: "Spun blood TAC PCR: Enterovirus (ENTV_4)"
+    bld_sp_GAST_2: "Spun blood TAC PCR: Group A Streptococcus (GAST_2)"
+    bld_sp_GBST_1: "Spun blood TAC PCR: Group B Streptococcus (GBST_1)"
+    bld_sp_HEPE_1: "Spun blood TAC PCR: Hepatitis E virus (HEPE_1)"
+    bld_sp_HFLU_1: "Spun blood TAC PCR: Haemophilus influenzae (pattern/typing) (HFLU_1)"
+    bld_sp_HIAT_1: "Spun blood TAC PCR: Haemophilus influenzae (hpd3 target) (HIAT_1)"
+    bld_sp_HITB_2: "Spun blood TAC PCR: Haemophilus influenzae type B (HITB_2)"
+    bld_sp_HPEV_1: "Spun blood TAC PCR: Parechovirus (HPEV_1)"
+    bld_sp_HSV1_1: "Spun blood TAC PCR: Herpes simplex virus 1 (HSV1_1)"
+    bld_sp_HSV2_1: "Spun blood TAC PCR: Herpes simplex virus 2 (HSV2_1)"
+    bld_sp_JENV_1: "Spun blood TAC PCR: Japanese encephalitis virus (JENV_1)"
+    bld_sp_KLPN_1: "Spun blood TAC PCR: Klebsiella pneumoniae (KLPN_1)"
+    bld_sp_LASS_1: "Spun blood TAC PCR: Arenavirus/Lassa fever pattern interpretation (LASS_1)"
+    bld_sp_LAVA_1: "Spun blood TAC PCR: Lassa fever virus target 1 (LAVA_1)"
+    bld_sp_LAVB_1: "Spun blood TAC PCR: Lassa fever virus target 2 (LAVB_1)"
+    bld_sp_LAVP_1: "Spun blood TAC PCR: Pan arenavirus target (LAVP_1)"
+    bld_sp_LEPT_1: "Spun blood TAC PCR: Leptospira (pan-serovar) (LEPT_1)"
+    bld_sp_LIMO_1: "Spun blood TAC PCR: Listeria monocytogenes (LIMO_1)"
+    bld_sp_MEVS_1: "Spun blood TAC PCR: Measles virus (MEVS_1)"
+    bld_sp_MOCA_1: "Spun blood TAC PCR: Moraxella catarrhalis (MOCA_1)"
+    bld_sp_MUMP_1: "Spun blood TAC PCR: Mumps virus (MUMP_1)"
+    bld_sp_MYTB_1: "Spun blood TAC PCR: Mycobacterium tuberculosis (MYTB_1)"
+    bld_sp_NEGO_1: "Spun blood TAC PCR: Neisseria gonorrhoeae (NEGO_1)"
+    bld_sp_NIPV_1: "Spun blood TAC PCR: Nipah virus (NIPV_1)"
+    bld_sp_NMEN_1: "Spun blood TAC PCR: Neisseria meningitidis (NMEN_1)"
+    bld_sp_ORTS_1: "Spun blood TAC PCR: Orientia tsutsugamushi (ORTS_1)"
+    bld_sp_PARV_1: "Spun blood TAC PCR: Parvovirus B19 (PARV_1)"
+    bld_sp_PLFA_1: "Spun blood TAC PCR: Plasmodium falciparum (PLFA_1)"
+    bld_sp_PLVI_1: "Spun blood TAC PCR: Plasmodium vivax (PLVI_1)"
+    bld_sp_PSAE_1: "Spun blood TAC PCR: Pseudomonas aeruginosa (PSAE_1)"
+    bld_sp_RICK_1: "Spun blood TAC PCR: Rickettsia species (RICK_1)"
+    bld_sp_RIVF_1: "Spun blood TAC PCR: Rift Valley fever virus (RIVF_1)"
+    bld_sp_RUBV_2: "Spun blood TAC PCR: Rubella virus (RUBV_2)"
+    bld_sp_SALM_1: "Spun blood TAC PCR: Salmonella species pattern interpretation (SALM_1)"
+    bld_sp_SALS_1: "Spun blood TAC PCR: Salmonella species (SALS_1)"
+    bld_sp_SAPA_1: "Spun blood TAC PCR: Salmonella Paratyphi A (SAPA_1)"
+    bld_sp_SATY_1: "Spun blood TAC PCR: Salmonella Typhi (SATY_1)"
+    bld_sp_STAU_2: "Spun blood TAC PCR: Staphylococcus aureus (STAU_2)"
+    bld_sp_STPN_2: "Spun blood TAC PCR: Streptococcus pneumoniae (STPN_2)"
+    bld_sp_STSU_1: "Spun blood TAC PCR: Streptococcus suis (STSU_1)"
+    bld_sp_TOXO_1: "Spun blood TAC PCR: Toxoplasma gondii (TOXO_1)"
+    bld_sp_TRPA_1: "Spun blood TAC PCR: Treponema pallidum (TRPA_1)"
+    bld_sp_URUP_1: "Spun blood TAC PCR: Ureaplasma species (URUP_1)"
+    bld_sp_VAZV_1: "Spun blood TAC PCR: Varicella zoster virus (VAZV_1)"
+    bld_sp_WENV_1: "Spun blood TAC PCR: West Nile virus (WENV_1)"
+    bld_sp_YEFV_1: "Spun blood TAC PCR: Yellow fever virus (YEFV_1)"
+    bld_sp_YERS_1: "Spun blood TAC PCR: Yersinia species (YERS_1)"
+    bld_sp_ZIKA_1: "Spun blood TAC PCR: Zika virus (ZIKA_1)"
+    # =========================
+    # CSF TAQ (TAC)
+    # =========================
+    CSF_ABAU_1: "CSF TAC PCR: Acinetobacter baumannii (ABAU_1)"
+    CSF_ADEV_1: "CSF TAC PCR: Adenovirus (ADEV_1)"
+    CSF_BART_1: "CSF TAC PCR: Bartonella species (BART_1)"
+    CSF_BRUC_1: "CSF TAC PCR: Brucella species (BRUC_1)"
+    CSF_BUPS_1: "CSF TAC PCR: Burkholderia pseudomallei (BUPS_1)"
+    CSF_CAAL_1: "CSF TAC PCR: Candida albicans (CAAL_1)"
+    CSF_CCHF_1: "CSF TAC PCR: Crimean-Congo hemorrhagic fever virus (CCHF_1)"
+    CSF_CHIC_1: "CSF TAC PCR: Chikungunya virus (CHIC_1)"
+    CSF_COBU_1: "CSF TAC PCR: Coxiella burnetii (COBU_1)"
+    CSF_CRNG_1: "CSF TAC PCR: Cryptococcus neoformans/gattii (CRNG_1)"
+    CSF_CYMV_1: "CSF TAC PCR: Cytomegalovirus (CYMV_1)"
+    CSF_DENV_1: "CSF TAC PCR: Dengue virus (pan) (DENV_1)"
+    CSF_ECSH_1: "CSF TAC PCR: Escherichia coli / Shigella (uidA) (ECSH_1)"
+    CSF_ENFC_1: "CSF TAC PCR: Enterococcus faecalis (ENFC_1)"
+    CSF_ENFM_1: "CSF TAC PCR: Enterococcus faecium (ENFM_1)"
+    CSF_ENTV_4: "CSF TAC PCR: Enterovirus (ENTV_4)"
+    CSF_GAST_2: "CSF TAC PCR: Group A Streptococcus (GAST_2)"
+    CSF_GBST_1: "CSF TAC PCR: Group B Streptococcus (GBST_1)"
+    CSF_HEPE_1: "CSF TAC PCR: Hepatitis E virus (HEPE_1)"
+    CSF_HFLU_1: "CSF TAC PCR: Haemophilus influenzae (pattern/typing) (HFLU_1)"
+    CSF_HIAT_1: "CSF TAC PCR: Haemophilus influenzae (hpd3 target) (HIAT_1)"
+    CSF_HITB_2: "CSF TAC PCR: Haemophilus influenzae type B (HITB_2)"
+    CSF_HPEV_1: "CSF TAC PCR: Parechovirus (HPEV_1)"
+    CSF_HSV1_1: "CSF TAC PCR: Herpes simplex virus 1 (HSV1_1)"
+    CSF_HSV2_1: "CSF TAC PCR: Herpes simplex virus 2 (HSV2_1)"
+    CSF_JENV_1: "CSF TAC PCR: Japanese encephalitis virus (JENV_1)"
+    CSF_KLPN_1: "CSF TAC PCR: Klebsiella pneumoniae (KLPN_1)"
+    CSF_LASS_1: "CSF TAC PCR: Arenavirus/Lassa fever pattern interpretation (LASS_1)"
+    CSF_LAVA_1: "CSF TAC PCR: Lassa fever virus target 1 (LAVA_1)"
+    CSF_LAVB_1: "CSF TAC PCR: Lassa fever virus target 2 (LAVB_1)"
+    CSF_LAVP_1: "CSF TAC PCR: Pan arenavirus target (LAVP_1)"
+    CSF_LEPT_1: "CSF TAC PCR: Leptospira (pan-serovar) (LEPT_1)"
+    CSF_LIMO_1: "CSF TAC PCR: Listeria monocytogenes (LIMO_1)"
+    CSF_MEVS_1: "CSF TAC PCR: Measles virus (MEVS_1)"
+    CSF_MOCA_1: "CSF TAC PCR: Moraxella catarrhalis (MOCA_1)"
+    CSF_MUMP_1: "CSF TAC PCR: Mumps virus (MUMP_1)"
+    CSF_MYTB_1: "CSF TAC PCR: Mycobacterium tuberculosis (MYTB_1)"
+    CSF_NEGO_1: "CSF TAC PCR: Neisseria gonorrhoeae (NEGO_1)"
+    CSF_NIPV_1: "CSF TAC PCR: Nipah virus (NIPV_1)"
+    CSF_NMEN_1: "CSF TAC PCR: Neisseria meningitidis (NMEN_1)"
+    CSF_ORTS_1: "CSF TAC PCR: Orientia tsutsugamushi (ORTS_1)"
+    CSF_PARV_1: "CSF TAC PCR: Parvovirus B19 (PARV_1)"
+    CSF_PLFA_1: "CSF TAC PCR: Plasmodium falciparum (PLFA_1)"
+    CSF_PLVI_1: "CSF TAC PCR: Plasmodium vivax (PLVI_1)"
+    CSF_PSAE_1: "CSF TAC PCR: Pseudomonas aeruginosa (PSAE_1)"
+    CSF_RICK_1: "CSF TAC PCR: Rickettsia species (RICK_1)"
+    CSF_RIVF_1: "CSF TAC PCR: Rift Valley fever virus (RIVF_1)"
+    CSF_RUBV_2: "CSF TAC PCR: Rubella virus (RUBV_2)"
+    CSF_SALM_1: "CSF TAC PCR: Salmonella species pattern interpretation (SALM_1)"
+    CSF_SALS_1: "CSF TAC PCR: Salmonella species (SALS_1)"
+    CSF_SAPA_1: "CSF TAC PCR: Salmonella Paratyphi A (SAPA_1)"
+    CSF_SATY_1: "CSF TAC PCR: Salmonella Typhi (SATY_1)"
+    CSF_STAU_2: "CSF TAC PCR: Staphylococcus aureus (STAU_2)"
+    CSF_STPN_2: "CSF TAC PCR: Streptococcus pneumoniae (STPN_2)"
+    CSF_STSU_1: "CSF TAC PCR: Streptococcus suis (STSU_1)"
+    CSF_TOXO_1: "CSF TAC PCR: Toxoplasma gondii (TOXO_1)"
+    CSF_TRPA_1: "CSF TAC PCR: Treponema pallidum (TRPA_1)"
+    CSF_URUP_1: "CSF TAC PCR: Ureaplasma species (URUP_1)"
+    CSF_VAZV_1: "CSF TAC PCR: Varicella zoster virus (VAZV_1)"
+    CSF_WENV_1: "CSF TAC PCR: West Nile virus (WENV_1)"
+    CSF_YEFV_1: "CSF TAC PCR: Yellow fever virus (YEFV_1)"
+    CSF_YERS_1: "CSF TAC PCR: Yersinia species (YERS_1)"
+    CSF_ZIKA_1: "CSF TAC PCR: Zika virus (ZIKA_1)"
+    # =========================
+    # Lung TAQ (TAC)
+    # =========================
+    lung_ABAU_1: "Lung TAC PCR: Acinetobacter baumannii (ABAU_1)"
+    lung_ADEV_1: "Lung TAC PCR: Adenovirus (ADEV_1)"
+    lung_BOP1_1: "Lung TAC PCR: Bordetella pertussis / holmesii (IS481) (BOP1_1)"
+    lung_BOP2_1: "Lung TAC PCR: Bordetella pertussis (pertussis toxin) (BOP2_1)"
+    lung_BORD_1: "Lung TAC PCR: Bordetella species pattern interpretation (BORD_1)"
+    lung_BPAR_1: "Lung TAC PCR: Bordetella parapertussis / bronchiseptica (IS1001) (BPAR_1)"
+    lung_BUPS_1: "Lung TAC PCR: Burkholderia pseudomallei (BUPS_1)"
+    lung_CDIP_1: "Lung TAC PCR: Corynebacterium diphtheriae pattern interpretation (CDIP_1)"
+    lung_CHPN_1: "Lung TAC PCR: Chlamydia pneumoniae (CHPN_1)"
+    lung_CHTR_1: "Lung TAC PCR: Chlamydia trachomatis (CHTR_1)"
+    lung_CODI_1: "Lung TAC PCR: Corynebacterium diphtheriae (CODI_1)"
+    lung_COUP_1: "Lung TAC PCR: Corynebacterium ulcerans/pseudotuberculosis (COUP_1)"
+    lung_COV2_1: "Lung TAC PCR: SARS-CoV-2 (COVID-19) (COV2_1)"
+    lung_CTOX_1: "Lung TAC PCR: Corynebacterium tox gene (CTOX_1)"
+    lung_CYMV_1: "Lung TAC PCR: Cytomegalovirus (CYMV_1)"
+    lung_ENTV_4: "Lung TAC PCR: Enterovirus (ENTV_4)"
+    lung_FLUA_1: "Lung TAC PCR: Influenza A (FLUA_1)"
+    lung_FLUA_2: "Lung TAC PCR: Influenza A (alternate target) (FLUA_2)"
+    lung_FLUB_1: "Lung TAC PCR: Influenza B (FLUB_1)"
+    lung_GAST_2: "Lung TAC PCR: Group A Streptococcus (GAST_2)"
+    lung_GBST_1: "Lung TAC PCR: Group B Streptococcus (GBST_1)"
+    lung_HCV1_1: "Lung TAC PCR: Human coronavirus 229E (HCV1_1)"
+    lung_HCV2_1: "Lung TAC PCR: Human coronavirus NL63 (HCV2_1)"
+    lung_HCV3_1: "Lung TAC PCR: Human coronavirus OC43 (HCV3_1)"
+    lung_HCV4_1: "Lung TAC PCR: Human coronavirus HKU1 (HCV4_1)"
+    lung_HFLU_1: "Lung TAC PCR: Haemophilus influenzae (pattern/typing) (HFLU_1)"
+    lung_HIAT_1: "Lung TAC PCR: Haemophilus influenzae (hpd3 target) (HIAT_1)"
+    lung_HITB_2: "Lung TAC PCR: Haemophilus influenzae type B (HITB_2)"
+    lung_HMPV_1: "Lung TAC PCR: Human metapneumovirus (HMPV_1)"
+    lung_KLPN_1: "Lung TAC PCR: Klebsiella pneumoniae (KLPN_1)"
+    lung_MCOR_1: "Lung TAC PCR: MERS coronavirus pattern interpretation (MCOR_1)"
+    lung_MERS_1: "Lung TAC PCR: MERS coronavirus (MERS_1)"
+    lung_MEVS_1: "Lung TAC PCR: Measles virus (MEVS_1)"
+    lung_MOCA_1: "Lung TAC PCR: Moraxella catarrhalis (MOCA_1)"
+    lung_MRSN_1: "Lung TAC PCR: MERS coronavirus (N gene) (MRSN_1)"
+    lung_MRSU_1: "Lung TAC PCR: MERS coronavirus (upE gene) (MRSU_1)"
+    lung_MYPN_1: "Lung TAC PCR: Mycoplasma pneumoniae (MYPN_1)"
+    lung_MYTB_1: "Lung TAC PCR: Mycobacterium tuberculosis (MYTB_1)"
+    lung_PIV1_2: "Lung TAC PCR: Parainfluenza virus type 1 (PIV1_2)"
+    lung_PIV2_1: "Lung TAC PCR: Parainfluenza virus type 2 (PIV2_1)"
+    lung_PIV3_1: "Lung TAC PCR: Parainfluenza virus type 3 (PIV3_1)"
+    lung_PIV4_1: "Lung TAC PCR: Parainfluenza virus type 4 (PIV4_1)"
+    lung_PNJI_1: "Lung TAC PCR: Pneumocystis jirovecii (PNJI_1)"
+    lung_PSAE_1: "Lung TAC PCR: Pseudomonas aeruginosa (PSAE_1)"
+    lung_RESV_1: "Lung TAC PCR: Respiratory syncytial virus (RESV_1)"
+    lung_RHIV_1: "Lung TAC PCR: Rhinovirus (RHIV_1)"
+    lung_RUBV_2: "Lung TAC PCR: Rubella virus (RUBV_2)"
+    lung_SARS_1: "Lung TAC PCR: SARS coronavirus (SARS_1)"
+    lung_STAU_2: "Lung TAC PCR: Staphylococcus aureus (STAU_2)"
+    lung_STPN_2: "Lung TAC PCR: Streptococcus pneumoniae (STPN_2)"
+    lung_URPA_1: "Lung TAC PCR: Ureaplasma parvum (URPA_1)"
+    lung_URUR_1: "Lung TAC PCR: Ureaplasma urealyticum (URUR_1)"
+    lung_VAZV_1: "Lung TAC PCR: Varicella zoster virus (VAZV_1)"
+    # =========================
+    # Rectal swab TAQ (TAC)
+    # =========================
+    rect_swab_AD4X_1: "Rectal swab TAC PCR: Adenovirus 40/41 (AD4X_1)"
+    rect_swab_ADEV_1: "Rectal swab TAC PCR: Adenovirus (ADEV_1)"
+    rect_swab_AERO_1: "Rectal swab TAC PCR: Aeromonas species (AERO_1)"
+    rect_swab_ASLU_1: "Rectal swab TAC PCR: Ascaris lumbricoides (ASLU_1)"
+    rect_swab_ASTR_1: "Rectal swab TAC PCR: Astrovirus (ASTR_1)"
+    rect_swab_CACO_1: "Rectal swab TAC PCR: Campylobacter coli (CACO_1)"
+    rect_swab_CAJE_1: "Rectal swab TAC PCR: Campylobacter jejuni (CAJE_1)"
+    rect_swab_CDIF_1: "Rectal swab TAC PCR: Clostridioides difficile pattern interpretation (CDIF_1)"
+    rect_swab_CLDA_1: "Rectal swab TAC PCR: C. difficile toxin A gene tcdA (CLDA_1)"
+    rect_swab_CLDB_1: "Rectal swab TAC PCR: C. difficile toxin B gene tcdB (CLDB_1)"
+    rect_swab_CLDP_1: "Rectal swab TAC PCR: C. difficile paLOC (CLDP_1)"
+    rect_swab_CRPA_1: "Rectal swab TAC PCR: Cryptosporidium parvum (CRPA_1)"
+    rect_swab_EAE1_1: "Rectal swab TAC PCR: EAEC (aaiC) (EAE1_1)"
+    rect_swab_EAE2_1: "Rectal swab TAC PCR: EAEC (aatA) (EAE2_1)"
+    rect_swab_EIES_1: "Rectal swab TAC PCR: EIEC/Shigella (ipaH) (EIES_1)"
+    rect_swab_ENFC_1: "Rectal swab TAC PCR: Enterococcus faecalis (ENFC_1)"
+    rect_swab_ENFM_1: "Rectal swab TAC PCR: Enterococcus faecium (ENFM_1)"
+    rect_swab_ENHI_1: "Rectal swab TAC PCR: Entamoeba histolytica (ENHI_1)"
+    rect_swab_ENTV_4: "Rectal swab TAC PCR: Enterovirus (ENTV_4)"
+    rect_swab_EPE1_1: "Rectal swab TAC PCR: EPEC (eae) (EPE1_1)"
+    rect_swab_EPE2_1: "Rectal swab TAC PCR: EPEC (bfpA) (EPE2_1)"
+    rect_swab_ETLT_1: "Rectal swab TAC PCR: ETEC heat-labile toxin (LT) (ETLT_1)"
+    rect_swab_ETST_1: "Rectal swab TAC PCR: ETEC heat-stable toxin (STh/STp) (ETST_1)"
+    rect_swab_GIAR_1: "Rectal swab TAC PCR: Giardia species (GIAR_1)"
+    rect_swab_MYTB_1: "Rectal swab TAC PCR: Mycobacterium tuberculosis (MYTB_1)"
+    rect_swab_NOR1_1: "Rectal swab TAC PCR: Norovirus GI (NOR1_1)"
+    rect_swab_NOR2_1: "Rectal swab TAC PCR: Norovirus GII (NOR2_1)"
+    rect_swab_ROTA_1: "Rectal swab TAC PCR: Rotavirus A (ROTA_1)"
+    rect_swab_ROTB_1: "Rectal swab TAC PCR: Rotavirus B (ROTB_1)"
+    rect_swab_ROTC_1: "Rectal swab TAC PCR: Rotavirus C (ROTC_1)"
+    rect_swab_ROTN_1: "Rectal swab TAC PCR: Rotavirus non-typable (ROTN_1)"
+    rect_swab_SALS_1: "Rectal swab TAC PCR: Salmonella species (SALS_1)"
+    rect_swab_SAPV_1: "Rectal swab TAC PCR: Sapovirus V (SAPV_1)"
+    rect_swab_SAPX_1: "Rectal swab TAC PCR: Sapovirus I/II/IV (SAPX_1)"
+    rect_swab_STX1_1: "Rectal swab TAC PCR: Shiga toxin 1 (STX1_1)"
+    rect_swab_STX2_1: "Rectal swab TAC PCR: Shiga toxin 2 (STX2_1)"
+    rect_swab_TRTR_1: "Rectal swab TAC PCR: Trichuris trichiura (TRTR_1)"
+    rect_swab_VCHO_1: "Rectal swab TAC PCR: Vibrio cholerae pattern interpretation (VCHO_1)"
+    rect_swab_VICH_1: "Rectal swab TAC PCR: Vibrio cholerae (ompW) (VICH_1)"
+    rect_swab_VTOX_1: "Rectal swab TAC PCR: Vibrio cholerae toxin gene (ctxA) (VTOX_1)"
+    rect_swab_YERS_1: "Rectal swab TAC PCR: Yersinia species (YERS_1)"
+    # =========================
+    # NP and OP swabs — NP_OP_
+    # =========================
+    NP_OP_ABAU_1: "NP/OP swab TAC PCR: Acinetobacter baumannii (ABAU_1)"
+    NP_OP_ADEV_1: "NP/OP swab TAC PCR: Adenovirus (ADEV_1)"
+    NP_OP_BOP1_1: "NP/OP swab TAC PCR: Bordetella pertussis / Bordetella holmesii (IS481 target) (BOP1_1)"
+    NP_OP_BOP2_1: "NP/OP swab TAC PCR: Bordetella pertussis (pertussis toxin target) (BOP2_1)"
+    NP_OP_BORD_1: "NP/OP swab TAC PCR: Bordetella species — pattern interpretation (BORD_1)"
+    NP_OP_BPAR_1: "NP/OP swab TAC PCR: Bordetella parapertussis / Bordetella bronchiseptica (IS1001 target) (BPAR_1)"
+    NP_OP_BUPS_1: "NP/OP swab TAC PCR: Burkholderia pseudomallei (BUPS_1)"
+    NP_OP_CDIP_1: "NP/OP swab TAC PCR: Corynebacterium diphtheriae — pattern interpretation (CDIP_1)"
+    NP_OP_CHPN_1: "NP/OP swab TAC PCR: Chlamydia pneumoniae (CHPN_1)"
+    NP_OP_CHTR_1: "NP/OP swab TAC PCR: Chlamydia trachomatis (CHTR_1)"
+    NP_OP_CODI_1: "NP/OP swab TAC PCR: Corynebacterium diphtheriae (CODI_1)"
+    NP_OP_COUP_1: "NP/OP swab TAC PCR: Corynebacterium ulcerans / Corynebacterium pseudotuberculosis (COUP_1)"
+    NP_OP_COV2_1: "NP/OP swab TAC PCR: SARS-CoV-2 (COVID-19) (COV2_1)"
+    NP_OP_CTOX_1: "NP/OP swab TAC PCR: Corynebacterium diphtheriae toxin gene (tox) (CTOX_1)"
+    NP_OP_CYMV_1: "NP/OP swab TAC PCR: Cytomegalovirus (CMV) (CYMV_1)"
+    NP_OP_ENTV_4: "NP/OP swab TAC PCR: Enterovirus (ENTV_4)"
+    NP_OP_FLUA_1: "NP/OP swab TAC PCR: Influenza A (FLUA_1)"
+    NP_OP_FLUA_2: "NP/OP swab TAC PCR: Influenza A (alternate target) (FLUA_2)"
+    NP_OP_FLUB_1: "NP/OP swab TAC PCR: Influenza B (FLUB_1)"
+    NP_OP_GAST_2: "NP/OP swab TAC PCR: Group A Streptococcus (Strep pyogenes) (GAST_2)"
+    NP_OP_GBST_1: "NP/OP swab TAC PCR: Group B Streptococcus (Strep agalactiae) (GBST_1)"
+    NP_OP_HCV1_1: "NP/OP swab TAC PCR: Human coronavirus 229E (HCV1_1)"
+    NP_OP_HCV2_1: "NP/OP swab TAC PCR: Human coronavirus NL63 (HCV2_1)"
+    NP_OP_HCV3_1: "NP/OP swab TAC PCR: Human coronavirus OC43 (HCV3_1)"
+    NP_OP_HCV4_1: "NP/OP swab TAC PCR: Human coronavirus HKU1 (HCV4_1)"
+    NP_OP_HFLU_1: "NP/OP swab TAC PCR: Haemophilus influenzae — pattern interpretation (HFLU_1)"
+    NP_OP_HIAT_1: "NP/OP swab TAC PCR: Haemophilus influenzae (HIAT_1)"
+    NP_OP_HITB_2: "NP/OP swab TAC PCR: Haemophilus influenzae type b (Hib) (HITB_2)"
+    NP_OP_HMPV_1: "NP/OP swab TAC PCR: Human metapneumovirus (HMPV) (HMPV_1)"
+    NP_OP_KLPN_1: "NP/OP swab TAC PCR: Klebsiella pneumoniae (KLPN_1)"
+    NP_OP_MCOR_1: "NP/OP swab TAC PCR: MERS coronavirus — pattern interpretation (MCOR_1)"
+    NP_OP_MERS_1: "NP/OP swab TAC PCR: MERS coronavirus (MERS_1)"
+    NP_OP_MEVS_1: "NP/OP swab TAC PCR: Measles virus (MEVS_1)"
+    NP_OP_MOCA_1: "NP/OP swab TAC PCR: Moraxella catarrhalis (MOCA_1)"
+    NP_OP_MRSN_1: "NP/OP swab TAC PCR: MERS coronavirus (N gene target) (MRSN_1)"
+    NP_OP_MRSU_1: "NP/OP swab TAC PCR: MERS coronavirus (upE gene target) (MRSU_1)"
+    NP_OP_MYPN_1: "NP/OP swab TAC PCR: Mycoplasma pneumoniae (MYPN_1)"
+    NP_OP_MYTB_1: "NP/OP swab TAC PCR: Mycobacterium tuberculosis (MYTB_1)"
+    NP_OP_PIV1_2: "NP/OP swab TAC PCR: Parainfluenza virus type 1 (PIV1_2)"
+    NP_OP_PIV2_1: "NP/OP swab TAC PCR: Parainfluenza virus type 2 (PIV2_1)"
+    NP_OP_PIV3_1: "NP/OP swab TAC PCR: Parainfluenza virus type 3 (PIV3_1)"
+    NP_OP_PIV4_1: "NP/OP swab TAC PCR: Parainfluenza virus type 4 (PIV4_1)"
+    NP_OP_PNJI_1: "NP/OP swab TAC PCR: Pneumocystis jirovecii (PNJI_1)"
+    NP_OP_PSAE_1: "NP/OP swab TAC PCR: Pseudomonas aeruginosa (PSAE_1)"
+    NP_OP_RESV_1: "NP/OP swab TAC PCR: Respiratory syncytial virus (RSV) (RESV_1)"
+    NP_OP_RHIV_1: "NP/OP swab TAC PCR: Rhinovirus (RHIV_1)"
+    NP_OP_RUBV_2: "NP/OP swab TAC PCR: Rubella virus (RUBV_2)"
+    NP_OP_SARS_1: "NP/OP swab TAC PCR: SARS coronavirus (SARS-CoV-1) (SARS_1)"
+    NP_OP_STAU_2: "NP/OP swab TAC PCR: Staphylococcus aureus (STAU_2)"
+    NP_OP_STPN_2: "NP/OP swab TAC PCR: Streptococcus pneumoniae (pneumococcus) (STPN_2)"
+    NP_OP_URPA_1: "NP/OP swab TAC PCR: Ureaplasma parvum (URPA_1)"
+    NP_OP_URUR_1: "NP/OP swab TAC PCR: Ureaplasma urealyticum (URUR_1)"
+    NP_OP_VAZV_1: "NP/OP swab TAC PCR: Varicella-zoster virus (VZV) (VAZV_1)"
+ 
+
+  mits_lab_prefixes:
+    - bld_
+    - csf_
+    - HIV_DNA_
+    - Mal_
+    - TB_
+  mits_tac_prefixes:
+    - bld_
+    - bld_sp_
+    - CSF_
+    - lung_
+    - rect_swab_
+    - NP_OP_
+
+model:
+  name: openai/gpt-oss-120b
+  provider: local
+  api_key_env: API_KEY_ENV
+  api_key: 
+  dtype: bfloat16
+  use_4bit: false
+  max_new_tokens: 4096
+  temperature: 0
+  top_p: 0.9
+  num_models: 2
+  inference_batch_size: 1
+  multi_agent: false
+
+prompt:
+  system_prompt: |
+    ## TASK
+    You are an expert physician reviewing infant/child death cases. Your task is to decide whether the death is best explained by one of the allowed causes: {allowed_causes}.
+
+    ## STEPS
+    Step 1: Review the provided information in the **INPUT** section. If a **DIAGNOSIS STANDARD** is provided, use its criteria to ground your assessment of diagnostic certainty.
+    Step 2: Reason through the chain of events leading to the death using all available evidence from **INPUT**. Focus strictly on infant/child drivers and treat maternal conditions as out of scope.
+    Step 3: Pick the top 3 most likely causes of death from the allowed causes only, ranked by probability (highest first).
+    Step 4: In the FINAL channel, output only valid JSON, format: {"top_causes":[{"cause_name":"<one_of_the_allowed_causes>","probability":<0-1 float>}, {...}, {...}]}. Do not output any other text.
+
+  schema_guidance:
+    detailed: |
+      ## GUIDANCE
+      - Output the exact allowed cause string with correct capitalization and spacing; do not lowercase or paraphrase.
+      - Use **cerebral malaria** only when neurologic signs (e.g., coma, seizures, focal neuro signs) accompany malaria evidence; otherwise pick non-cerebral malaria.
+      - Do not upcode **Other severe/complicated malaria** to cerebral malaria without clear neurologic findings; if malaria evidence is present but no neuro signs, use non-cerebral malaria.
+      - Distinguish malnutrition types: use **Nutritional marasmus** for severe wasting/very low weight-for-age; use **Acute malnutrition in infants, children or adolescents** for acute malnutrition without clear marasmus/kwashiorkor criteria.
+      - Do not default to pneumonia or malaria when evidence is weak; if no strong match exists, prefer **Others** or **Undetermined** as applicable.
+      - If systemic infection or sepsis dominates (e.g., sepsis noted as immediate COD with bacteremia/Gram-negative organisms), choose sepsis categories rather than pneumonia unless respiratory findings clearly dominate.
+      - Use **Other low birth weight** primarily when prematurity/LBW is the main driver without strong infection signs; avoid replacing it with pneumonia unless respiratory findings dominate.
+      - Choose pathogen-specific pneumonia (e.g., Klebsiella, Strep pneumoniae) only with supporting lab/clinical evidence; otherwise select a broader pneumonia category.
+      - For diarrheal disease, require GI symptoms or dehydration for gastroenteritis labels; avoid shifting to sepsis/pneumonia without GI evidence.
+    group: |
+      ## GUIDANCE
+      - Output the exact cause name from the allowed causes list, preserving capitalization and wording. Do not paraphrase or lowercase.
+      - Choose Malaria only with lab-confirmed malaria or strong classic malaria signs; do not default to malaria for fever alone or incidental TAC findings.
+      - If severe malnutrition is evident (e.g., MUAC < 11.5 cm in 6-59 months or very low weight-for-age/height), Malnutrition should be top-1. Only override for clear trauma or congenital primary causes.
+      - Distinguish LRI vs Sepsis: use Lower respiratory infections when respiratory signs dominate (cough, fast breathing, chest indrawing, hypoxia, pneumonia); use Sepsis only for documented systemic infection without a clear primary focus and do not default to Sepsis.
+      - Choose HIV only with positive HIV testing or advanced HIV disease; otherwise select the proximate infection (LRI/diarrhea/malaria).
+      - For neonates, use Neonatal preterm birth complications when prematurity/low birth weight is primary without infection signs; use Neonatal sepsis only with strong infection evidence.
+      - For diarrheal disease, require GI symptoms or dehydration; if GI dominates, Diarrheal Diseases should be in the top 3.
+      - If classic LRI signs are present without severe malnutrition, LRI should be top-1 or top-3; if severe malnutrition is present, Malnutrition stays top-1 and LRI can be top-3.
+      - If malaria tests are positive, Malaria should be in the top 3; if severe malnutrition is evident, Malnutrition should be in the top 3.
+      - If evidence is weak, conflicting, or lacks key symptoms/labs, output Undetermined as cause_name.
+  # Sections to include in the prompt from the structured data subset.
+  # Options: narrative, structured_va, demographics, mits, clinical_abstraction, diagnosis_standard
+  include_sections:
+    - structured_va
+    - narrative
+    - demographics
+    - mits
+    - clinical_abstraction
+
+
+  diagnosis_standard: |
+    ### Level of Certainty
+    **Level 1:** Diagnosis of a condition with the highest level of certainty possible for that condition, consisting of:
+    - 1) highly specific pathological findings, **or**  
+    - 2) a CHAMPS laboratory test with specific findings **and** medically observed and documented / clinically observed appropriate illness sign(s).
+    
+    **Level 2:** Diagnosis of a condition with a high level of certainty, consisting of:
+    - 1) medically observed and documented appropriate illness sign(s) to support the diagnosis, **or**  
+    - 2) a CHAMPS laboratory test with specific findings **and** supporting symptoms reported by Verbal Autopsy (VA).
+    
+    **Level 3:** Conditions which would be considered for diagnosis (i.e., from Verbal Autopsy data alone) but do not meet Level 1 or Level 2 criteria.
+
+    ### Malnutrition
+
+    General note: MITS anthropometrics are converted to z-scores (with special growth charts used when applicable), and HIV wasting should use the HIV with Wasting Syndrome ICD-10 code when relevant.
+
+    Kwashiorkor (E40)
+      •	Level 1: Pre-death clinical diagnosis of kwashiorkor (edema) plus histologic fatty liver changes (macrocytic steatosis, often periportal) or documented low albumin during pre-death clinical care.
+      •	Level 2: Clinical diagnosis of kwashiorkor prior to death or physical exam findings consistent with kwashiorkor during MITS (bilateral pitting edema).
+      •	Level 3: VA report of bilateral pitting edema on feet/ankles, legs, hands, face, or abdomen (ascites).
+
+    Marasmus (E41)
+      •	Level 1: Pre-death clinical diagnosis or MITS anthropometrics: weight-for-height < -3 z (or MUAC <11.5 cm in 6–59 months) or (if length/height unreliable) weight-for-age < -3 z.
+      •	Level 2: MITS anthropometrics: weight-for-height between -2 and -3 z (or MUAC 11.5–12.5 cm) or (if length/height unreliable) weight-for-age between -2 and -3 z.
+      •	Level 3: Clinical suspicion of malnutrition documented medically or by VA report, without sufficient criteria for Level 1/2.
+
+    Marasmic kwashiorkor (E42)
+      •	Use when a case meets criteria for both kwashiorkor and marasmus.
+
+    Severe protein-energy malnutrition, unspecified (E43) / Moderate protein-energy malnutrition (E44)
+      •	Panelists are instructed to prefer the more specific diagnoses above when possible; these are used when kwashiorkor/marasmus criteria are not met but protein-energy malnutrition is still supported.
+
+    Stunting (E45)
+      •	Defined via MITS anthropometrics as height-for-age < -2 z, and should be included when it contributes to death.
+
+    Wasting (R64)
+      •	Level 1: Pre-death clinical diagnosis of wasting plus a contributing underlying chronic condition (e.g., chronic disease/HIV/AIDS/TB/cancer), as assessed by panelists.
+      •	Level 2: Clinical diagnosis of wasting (no specific underlying condition required).
+      •	Level 3: VA report of wasting/cachexia, without meeting Level 1/2.
+
+    ⸻
+
+    ### Malaria
+
+    Malaria with cerebral complications (B50.0)
+      •	Level 1: Detection of Plasmodium falciparum by PCR/TAC in brain tissues, and no better explanation for neurologic syndrome.
+      •	Level 2: Detection of P. falciparum by PCR/TAC in brain tissue or blood, plus clinical/VA evidence of seizures, coma, prostration, focal neuro signs, severe anemia, hypoglycemia, acidosis, severe respiratory distress, etc.
+      •	Level 3: P. falciparum detected in brain/blood by PCR/TAC or parasitemia on blood smear, plus clinical features suggestive of cerebral malaria, but insufficient to meet Level 1/2.
+
+    Non-cerebral malaria (B50.8, B51.8, B52.8, B53.8, B54)
+      •	Level 1: Parasitemia (smear), malaria rapid diagnostic test, or PCR/TAC evidence, plus consistent clinical malaria illness, with no more likely diagnosis.
+      •	Level 2: Detection of Plasmodium by PCR/TAC in blood or tissues in the context of febrile illness consistent with malaria, but not meeting Level 1.
+      •	Level 3: Suspected malaria by clinical history/VA without sufficient lab confirmation for Level 1/2.
+
+    Past malaria (B50.9, B51.9, B52.9, B53.9)
+      •	Use when past malaria is reported/treated, but criteria for current malaria are not met.
+
+    ⸻
+
+    ### Lower respiratory infections
+
+    (Operationalized in the manual via pneumonia and bronchiolitis standards.)
+
+    Pneumonia, unspecified organism (J18)
+      •	Level 1: Strong histologic evidence of pneumonia in lung tissue.
+      •	Level 2: Illness meeting clinical pneumonia criteria (e.g., tachypnea, respiratory distress, abnormal breath sounds, hypoxia/desaturation, fever/hypothermia) documented medically or by MITS report.
+      •	Level 3: Illness consistent with pneumonia but not meeting Level 1/2 (e.g., only partially documented).
+
+    Bronchiolitis (J21.8, J21.9)
+      •	Level 1: Clinical bronchiolitis illness (wheezing/crackles/tachypnea/resp distress) documented medically or during MITS.
+      •	Level 2: Bronchiolitis illness reported by VA (cough/difficulty breathing/wheezing), not meeting Level 1.
+      •	Level 3: Suggestive but insufficient evidence for Level 1/2.
+
+    (There are also pathogen-specific bronchiolitis entries, e.g., RSV/HMPV, which add organism evidence on top of bronchiolitis illness.)
+
+    ⸻
+
+    ### Congenital birth defects
+
+    Congenital Malformations, Deformations and Chromosomal Abnormalities (Q00–Q99) (ND, SB)
+      •	Level 1: (1) Congenital malformation externally visible or established by imaging, and (2) assessed to have (or reasonably could have) contributed to death.
+      •	Level 2: External/internal congenital abnormality suspected by a medical provider and likely contributed to death, but not meeting Level 1.
+      •	Level 3: Congenital malformation reported by VA (e.g., abnormality noted at delivery) that contributed to death, not meeting Level 1.
+
+    ⸻
+
+    ### Diarrheal Diseases
+
+    (Operationalized in the manual via Gastroenteritis/Enteritis plus pathogen-specific diarrheal diagnoses.)
+
+    Gastroenteritis/Enteritis, unspecified origin (A09)
+      •	Level 1: Medical record evidence of gastroenteritis (diarrhea and/or vomiting) with dehydration/signs such as sunken eyes, poor skin turgor, delayed cap refill, dry mouth, tachycardia, lethargy, etc.
+      •	Level 2: Diarrhea and/or vomiting reported by VA (definitions include frequency/duration thresholds), with dehydration indicators or clinician documentation.
+      •	Level 3: Diarrhea and/or vomiting reported by VA without dehydration signs, or insufficient information for Level 1/2.
+
+    Examples of pathogen-specific diarrheal diagnoses (same “gastroenteritis illness” concept + organism evidence)
+      •	Rotavirus gastroenteritis (A08.0): Level 1/2/3 depend on rotavirus detection by PCR/TAC in stool/rectal swab and whether gastroenteritis meets Level 1/2 (or weaker evidence for Level 3).
+      •	Norovirus gastroenteritis (A08.1): Similar structure—norovirus detected by PCR/TAC with Level 1/2 gastroenteritis illness; Level 3 allows weaker symptom evidence. 
+      •	Shigellosis / EIEC gastroenteritis (A03): Requires gastroenteritis illness plus Shigella/EIEC evidence (with certainty level depending on clinical support).
+      •	Cholera (A00): Uses a cholera-specific definition (severe watery diarrhea/dehydration context) with certainty levels based on documentation and organism evidence. 
+
+      ⸻
+
+    ### HIV
+
+    	•	ICD-10 Codes: B20 (HIV disease resulting in infectious and parasitic syndromes), B21 (HIV disease resulting in malignant neoplasms), B22 (HIV disease resulting in other specified diseases), B23 (HIV disease resulting in other conditions), B24 (Unspecified HIV disease)  .
+      •	Level 1:
+      •	Detection of HIV by HIV DNA PCR or HIV RNA PCR (if available) in blood of a child of any age.
+      •	Detection of HIV antibodies (positive HIV ELISA) in blood of a child ≥18 months.
+      •	Immunological criteria for advanced HIV (e.g., CD4+ % thresholds for different age groups) or post-mortem findings (e.g., unexplained severe wasting, pneumonia).
+      •	Level 2: Laboratory evidence of HIV and documented clinical conditions (e.g., oral thrush, severe pneumonia) or a positive HIV antibody test for children <18 months with AIDS-indicator conditions.
+      •	Level 3: Presumptive diagnosis of advanced HIV disease based on WHO criteria for stage 3 or stage 4 conditions, or HIV-related maternal death  .
+
+      ⸻
+
+    ### Sepsis
+
+      •	ICD-10 Codes: A02.1 (Salmonella sepsis), A22.7 (Anthrax sepsis), A32.7 (Listerial sepsis), A40 (Group A Streptococcus sepsis), A41.0 (Staphylococcus aureus sepsis), etc..
+      •	Level 1: Strong pathological evidence (e.g., pyogenic infection in multiple tissues) and clinical findings (e.g., elevated WBC, temperature anomalies, altered mental status). Isolation or PCR detection of pathogens in blood, CSF, or tissues.
+      •	Level 2: Moderate pathological evidence, isolation of pathogens from tissues, or PCR evidence across different sites.
+      •	Level 3: Laboratory evidence of sepsis without meeting Level 1 or Level 2 criteria.
+          
+      ⸻
+    
+    ### Neonatal preterm birth complications
+
+      •	ICD-10 Codes: P07.0 (Extremely Low Birth Weight), P07.1 (Other Low Birth Weight), P07.2 (Extreme immaturity).
+      •	Level 1:
+      •	Weight below the 10th percentile for gestational age, gestational age confirmed by prenatal ultrasound or medical record.
+      •	Birth weight ≤999g (for extreme prematurity).
+      •	Level 2: Weight below the 10th percentile and gestational age confirmed by first-trimester ultrasound or other clinical evidence.
+      •	Level 3: Weight measurements and gestational age based on verbal autopsy or clinical officer’s assessment.
+
+
+  # Strategy switch:
+  # - disease: run per-cause disease specialists + disease_decision_prompt
+  # - role: run role-based panelists + panel_chair_prompt
+  agent_strategy: disease
+  
+  role_agents:
+    - name: "Persona A — Rural Health & Verbal Autopsy Specialist"
+      description: |
+        You are a rural health and demographic surveillance expert, specializing in verbal autopsy interpretation in low-resource settings. You focus on epidemiology, care-seeking behavior, and common causes of death in rural communities. You pay attention to patterns like delayed care, transport barriers, and common local infections.
+    - name: "Persona B — Pediatric Infectious Disease Clinician"
+      description: |
+        You are a pediatric infectious disease specialist. You focus on neonatal and child infections such as pneumonia, sepsis, meningitis, and HIV-related disease. You reason in terms of symptom timelines, fever, respiratory distress, immunization status, and potential pathogens.
+    - name: "Persona C — Neurology & Internal Medicine Reviewer"
+      description: |
+        You are a clinician with expertise in neurology and adult internal medicine. You look for neurological signs (seizures, confusion, focal deficits), metabolic irregularities, and complex multi-organ involvement. You challenge overly simple explanations and consider atypical presentations.
+    - name: "Persona D — Global Child Mortality Researcher"
+      description: |
+        You are a global child health researcher who studies leading causes of death in low- and middle-income countries. You think in terms of high-prevalence conditions like malaria, meningitis, diarrhea, and acute respiratory infections. You combine clinical clues with epidemiological priors.
+    - name: "Persona E — Public Health & Nutrition Specialist"
+      description: |
+        You are a public health expert focused on child nutrition, diarrheal disease, and multi-cause interactions. You pay attention to signs of malnutrition, dehydration, poor feeding, and chronic underlying vulnerabilities that contribute to mortality.
+    - name: "Persona F — Neonatal/Perinatal Epidemiologist"
+      description: |
+        You are an epidemiologist focused on neonatal and perinatal mortality. You consider gestational age, birth complications, maternal conditions, early-onset infection, and risk factors around birth and the first month of life. You often integrate multiple risk factors into a single cause-of-death judgment.
+  
+  disease_decision_prompt: |
+    ## TASK
+    You are an expert physician reviewing infant/child death cases. Your task is to decide whether the death is best explained by one of the allowed causes: {allowed_causes}.
+
+    ## STEPS
+    Step 1: Carefully read the SPECIALIST OPINIONS and consider their rationales.
+    Step 2: Apply the provided **DIAGNOSIS STANDARD** and SPECIALIST OPINIONS to the **INPUT**. Reason through the chain of events leading to the death using all available evidence. Focus on infant/child drivers and treat maternal conditions as out of scope.
+    Step 3: Pick the most likely cause of death from the allowed causes only. If none can be properly supported, output OTHERS.
+    Step 4: Output valid JSON only, format: {"cause_name":"<one_of_the_allowed_causes_or_OTHERS>"}. Do not output multiple labels or explanations.
+    
+  disease_specialist_prompt: |
+    ## TASK
+    You are an expert physician specialized in {cause} reviewing infant/child death cases. Your task is to decide whether the death is best explained by {cause}.
+    
+    ## STEPS
+    Step 1: Apply the provided **DIAGNOSIS STANDARD** to the **INPUT**. Reason through the chain of events leading to the death using all available evidence. Focus on infant/child drivers and treat maternal conditions as out of scope.
+    Step 2: Estimate the probability (0-1) that the death case is caused by {cause}.
+    Step 3: Output valid JSON only, format: {"cause_name": "{cause}", "probability": <0-1 float>, "rationale": "<rationale_for_the_probability_assessment>"}.
+
+  role_specialist_prompt: |
+    ## ROLE
+    You are {persona_name}.
+    {persona_description}
+
+    ## TASK
+    Review the case INPUT and provide your best cause-of-death vote from the allowed causes only.
+
+    ## RULES
+    - Allowed causes: {allowed_causes} (and OTHERS).
+    - Treat maternal conditions as out of scope; focus on infant/child drivers only.
+    - Use the provided **DIAGNOSIS STANDARD** to ground your vote. If evidence is weak, say so.
+    - Output valid JSON only. No extra text.
+
+    ## OUTPUT JSON
+    {
+      "role": "{persona_name}",
+      "primary_vote": "<one_of_allowed_causes_or_OTHERS>",
+      "ds_support": {
+        "primary_vote_level": "Level 1|Level 2|Level 3|None"
+      },
+      "alternate_votes": [
+        {"cause_name": "<allowed_or_OTHERS>", "ds_level": "Level 1|Level 2|Level 3|None", "why_not_primary": "<short string>"},
+        {"cause_name": "<allowed_or_OTHERS>", "ds_level": "Level 1|Level 2|Level 3|None", "why_not_primary": "<short string>"}
+      ],
+      "timeline_summary": ["<time-ordered key events/symptoms in 3-6 bullets>"],
+      "confidence": "High|Medium|Low"
+    }
+
+
+  panel_chair_prompt: |
+    ## ROLE
+    You are the Panel Chair of a cause-of-death decode panel.
+
+    ## TASK
+    Decide the best cause of death using PANELIST OPINIONS + provided **DIAGNOSIS STANDARD** + INPUT.
+    Allowed causes: {allowed_causes} (and OTHERS).
+
+    ## DECISION RULES
+    1) Tally primary_vote across panelists.
+    2) If a single cause has a strict majority, select it unless the majority has no DS support (all None) and a minority option has Level 1 or Level 2 DS support; in that case, prefer the minority option.
+    3) If no majority:
+      - Prefer the cause with the strongest DS level support cited across panelists (Level 1 > Level 2 > Level 3 > None).
+      - If still tied, prefer the cause with the most consistent timeline fit and least conflicting evidence.
+      - If still tied or evidence is weak across the board, output OTHERS.
+    4) Do not introduce new causes not in the allowed list.
+
+    ## OUTPUT
+    Output valid JSON only:
+    {"cause_name":"<one_of_allowed_causes_or_OTHERS>"}
+
+evaluation:
+  output_dir: outputs/pipeline
