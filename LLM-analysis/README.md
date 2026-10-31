@@ -3,7 +3,7 @@
 Code for the LLM-based analysis in our NeurIPS 2026 Evaluations and Datasets
 Track paper. The statistical and
 machine learning baselines (LightGBM, Elastic Net, InSilicoVA) and the CHAMPS
-preprocessing for them are in the companion folder.
+preprocessing for them are in [`../statsML-analysis/`](../statsML-analysis/).
 
 LLM-based cause-of-death (COD) classification for the CHAMPS (Child Health and Mortality Prevention Surveillance) network. The pipeline ingests verbal-autopsy narratives, structured VA responses, demographics, MITS lab/TAC results, and clinical abstraction records, then uses local LLMs to predict the underlying cause of death.
 

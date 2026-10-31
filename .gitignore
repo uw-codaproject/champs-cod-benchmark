@@ -18,7 +18,7 @@ __pycache__/
 .huggingface/
 
 # data
-data/
+/LLM-analysis/data/
 *.jsonl
 *.parquet
 
