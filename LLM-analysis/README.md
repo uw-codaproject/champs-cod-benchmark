@@ -44,7 +44,8 @@ https://champshealth.org/data/. Place the release under
 `data.demographics_file`, `data.mits_lab_file`, `data.mits_tac_file`,
 `data.clinical_abstraction_dir`). The 252-case test split is rebuilt from the
 data by `CHAMPSDatasetBuilder` (`random_seed: 31`, `test_size: 0.2`), so no
-split file is needed.
+split file is needed. It is the same split as
+`../statsML-analysis/data/infant_child_split.json`, which every method uses.
 
 ### Running
 
@@ -177,23 +178,6 @@ All configuration lives in `configs/pipeline.yaml`:
 - **Multi-agent** – set `model.multi_agent: true` and choose `prompt.agent_strategy`: `disease` (per-cause specialists) or `role` (expert panelists with configurable personas under `prompt.role_agents`).
 - **Model** – switch between local HF models and remote APIs (`provider: local` vs `api`), adjust decoding hyperparameters, quantization, and parallelism.
 
-
-## Citation
-
-Paper: https://openreview.net/forum?id=8qRMs3zaOJ
-
-Authors: 
-
-```bibtex
-@inproceedings{TODO,
-  title     = {TODO},
-  author    = {TODO},
-  booktitle = {Advances in Neural Information Processing Systems (NeurIPS),
-               Evaluations and Datasets Track},
-  year      = {2026},
-  url       = {https://openreview.net/forum?id=8qRMs3zaOJ}
-}
-```
 
 ## License and third-party assets
 
