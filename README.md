@@ -1,7 +1,6 @@
 # A Multimodal Benchmark for Evaluating Cause-of-Death Inference Using Child Health and Mortality Data
 
-Code for our NeurIPS 2026 paper (Evaluations and Datasets Track):
-https://openreview.net/forum?id=8qRMs3zaOJ
+Code for our NeurIPS 2026 paper (Evaluations and Datasets Track).
 
 ## Authors
 
@@ -68,8 +67,7 @@ on application: https://champshealth.org/data/.
                McCormick, Tyler H.},
   booktitle = {Advances in Neural Information Processing Systems (NeurIPS),
                Evaluations and Datasets Track},
-  year      = {2026},
-  url       = {https://openreview.net/forum?id=8qRMs3zaOJ}
+  year      = {2026}
 }
 ```
 
