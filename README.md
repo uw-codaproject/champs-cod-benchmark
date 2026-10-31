@@ -1,42 +1,14 @@
 # champs-llm-neurips2026
 
-Code for the LLM-based analysis in our NeurIPS 2026 Evaluations and Datasets
-Track paper (https://openreview.net/forum?id=8qRMs3zaOJ). The statistical and
+Folder `LLM-analysis`: Code for the LLM-based analysis in our NeurIPS 2026 Evaluations and Datasets
+Track paper. The statistical and
 machine learning baselines (LightGBM, Elastic Net, InSilicoVA) and the CHAMPS
-preprocessing for them are in the companion repository `champs_statsML`.
+preprocessing for them are in the companion folder.
 
-LLM-based cause-of-death (COD) classification for the CHAMPS (Child Health and Mortality Prevention Surveillance) network. The pipeline ingests verbal-autopsy narratives, structured VA responses, demographics, MITS lab/TAC results, and clinical abstraction records, then uses local or remote LLMs to predict the underlying cause of death.
-
-## Reproducing the paper results
-
-This repository is the code state that produced the released result set: ten runs
-over the CHAMPS infant/child test split on 2026-07-26. `configs/pipeline.yaml`
-is byte-identical to the config snapshot in each released run directory.
-
-### What was run
-
-Two models x five cumulative input-section sets, on the same 252-case test
-split (`split=test`, `random_seed=31`, `label_schema=group`, age groups Infant
-28d–<12mo and Child 12–<60mo), greedy decoding. A correct reproduction gives
-these numbers exactly.
-
-| cfg | model | input sections | top-1 | top-3 | macro-F1 |
-|----:|-------|----------------|------:|------:|---------:|
-| 1 | gpt-oss-120b | structured_va, narrative, demographics, mits, clinical_abstraction | 0.4365 | 0.6706 | 0.1228 |
-| 2 | gpt-oss-120b | structured_va, narrative, demographics, mits | 0.4087 | 0.6468 | 0.1484 |
-| 3 | gpt-oss-120b | structured_va, narrative, demographics | 0.3770 | 0.5357 | 0.1450 |
-| 4 | gpt-oss-120b | structured_va, demographics | 0.3214 | 0.4802 | 0.1176 |
-| 5 | gpt-oss-120b | structured_va | 0.2857 | 0.4722 | 0.1252 |
-| 6 | gpt-oss-20b | structured_va, narrative, demographics, mits, clinical_abstraction | 0.3730 | 0.6270 | 0.1163 |
-| 7 | gpt-oss-20b | structured_va, narrative, demographics, mits | 0.3929 | 0.5952 | 0.1071 |
-| 8 | gpt-oss-20b | structured_va, narrative, demographics | 0.3452 | 0.5159 | 0.1179 |
-| 9 | gpt-oss-20b | structured_va, demographics | 0.3095 | 0.4802 | 0.1109 |
-| 10 | gpt-oss-20b | structured_va | 0.2738 | 0.4167 | 0.1176 |
+LLM-based cause-of-death (COD) classification for the CHAMPS (Child Health and Mortality Prevention Surveillance) network. The pipeline ingests verbal-autopsy narratives, structured VA responses, demographics, MITS lab/TAC results, and clinical abstraction records, then uses local LLMs to predict the underlying cause of death.
 
 ### Environment and compute
 
-Nothing is trained or fine-tuned. Both models are used off the shelf for
-inference under a fixed prompt.
 
 - **Hardware:** NVIDIA H200 (141 GB), one GPU per job, 8 CPUs and 100–200 GB
   host RAM per job, Rocky 9, Slurm.
@@ -44,8 +16,7 @@ inference under a fixed prompt.
   jobs, 34.63 h; 10 merge jobs, 0.10 h).
 - **Software:** install `requirements-freeze.txt`, the exact environment of the
   runs (Python 3.11.14, torch 2.9.1, transformers 4.57.6, tokenizers 0.22.1,
-  triton 3.5.1, kernels 0.11.7, numpy 1.26.4). Not `requirements-core.txt`,
-  which has looser development pins.
+  triton 3.5.1, kernels 0.11.7, numpy 1.26.4).
 
   ```bash
   conda create -p /path/to/envs/champs-gpu python=3.11.14
@@ -98,27 +69,6 @@ python src/run_pipeline.py --split test --model-name openai/gpt-oss-120b \
 Shards take about 2 h (120b) or 4.5 h (20b). The merge fails if shards overlap,
 a case is missing, or the flags differ from the shards'.
 
-### Why the runs are deterministic
-
-- **Greedy decoding.** `model.temperature: 0` maps to `do_sample=False`. Any
-  `temperature > 0` brings back sampling.
-- **One replica per process, fixed case assignment.** Running several replicas
-  in one process and giving each case to whichever replica is free makes the
-  output depend on thread timing: two identical runs that way differed on 87 of
-  252 labels. Sharding by case index removes that.
-
-Rerunning cfg5 (120b) and cfg10 (20b) end to end on new GPU jobs gave 252/252
-cases identical in both predicted label and raw generation. Because repeated
-runs are identical, each configuration is reported from one run, without error
-bars.
-
-Caveats:
-
-- Determinism was verified on the same hardware and software stack. Other GPUs
-  or library versions can change floating-point reduction order and flip
-  near-ties.
-- Leave `CHAMPS_DETERMINISTIC` unset; it was not set for the released runs.
-- Do not use `--num-models > 1` to reproduce the results.
 
 ## Pipeline overview
 
@@ -173,52 +123,12 @@ pip install -r requirements-gpu.txt         # optional: GPU-validated torch + bi
 pip install -r requirements-langchain.txt   # optional: LangChain (for multi-agent mode)
 ```
 
-To reproduce the released results, install `requirements-freeze.txt` instead
-of `requirements-core.txt` — it is the exact environment the runs used, down
-to the patch version. See [Environment and compute](#environment-and-compute).
+To reproduce the released results, install `requirements-freeze.txt`  — it is the exact environment the runs used, down to the patch version. See [Environment and compute](#environment-and-compute).
 
 Model weights are fetched at runtime from Hugging Face (or via an API endpoint). For API-based models, create a `.env` file in the repo root with your key:
 
 ```
 API_KEY_ENV=your-key-here
-```
-
-## Running the pipeline
-
-### Local dry runs
-
-```bash
-# build dataset, render prompts, stop before model loading
-python src/run_pipeline.py --skip-generation --limit 32
-
-# export prompts for manual review or remote inference
-python src/run_pipeline.py --skip-generation --export-prompts --split validation --limit 256
-```
-
-### Inference
-
-```bash
-# single-agent, validation split, 10 % sample
-python src/run_pipeline.py --split validation --sample-frac 0.1
-
-# full test run on a GPU node
-python src/run_pipeline.py --config configs/pipeline.yaml --split test
-
-# override model, label schema, and input sections from the CLI
-python src/run_pipeline.py \
-  --split test \
-  --model-name openai/gpt-oss-120b \
-  --label-schema group \
-  --include-sections structured_va,narrative,demographics,mits \
-  --num-models 4
-```
-
-### SLURM batch jobs
-
-`run_all_jobs.sh` generates and submits SLURM jobs across model / label-schema / input-section combinations. `example.slurm` shows what a single generated job looks like:
-
-```bash
-bash run_all_jobs.sh
 ```
 
 ### CLI flags
@@ -265,15 +175,12 @@ All configuration lives in `configs/pipeline.yaml`:
 - **Multi-agent** – set `model.multi_agent: true` and choose `prompt.agent_strategy`: `disease` (per-cause specialists) or `role` (expert panelists with configurable personas under `prompt.role_agents`).
 - **Model** – switch between local HF models and remote APIs (`provider: local` vs `api`), adjust decoding hyperparameters, quantization, and parallelism.
 
-## Smoke test
-
-`src/test_model.py` verifies that model weights download and run correctly inside a GPU session.
 
 ## Citation
 
 Paper: https://openreview.net/forum?id=8qRMs3zaOJ
 
-Authors: TODO (camera-ready author list, in order)
+Authors: 
 
 ```bibtex
 @inproceedings{TODO,
