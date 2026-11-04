@@ -22,19 +22,7 @@ Samuel V. Scarpino<sup>2</sup>, Benjamin M. Gyori<sup>2</sup>, Tyler H. McCormic
 
 ## About the paper
 
-Only 8% of reported deaths in low-income countries have a documented cause.
-Verbal autopsy models assign causes from structured survey answers, but
-mortality surveillance now also collects free-text caregiver narratives and
-postmortem diagnostics that those models struggle to use.
-
-The paper builds a multimodal cause-of-death benchmark from the Child Health and
-Mortality Prevention Surveillance (CHAMPS) network, which spans nine countries
-in South Asia and Sub-Saharan Africa. It evaluates pretrained large language
-models, used through prompting without fine-tuning, against supervised
-baselines across progressively richer evidence: structured verbal autopsy,
-demographics, verbal-autopsy narratives, MITS lab and TAC results, and clinical
-abstraction. Its evaluation framework scores both the single underlying cause
-and whether a prediction falls anywhere in the causal chain.
+Accurately attributing causes of death is vital for global health, yet only 8% of reported deaths in low-income countries have a documented cause. To assign causes to these unlabeled deaths at scale, practitioners traditionally rely on verbal autopsy, using supervised statistical models to classify based on structured survey data. However, modern mortality surveillance increasingly collects rich, unstructured multimodal data, such as free-text caregiver narratives and postmortem diagnostics, which traditional supervised statistical models struggle to seamlessly integrate. In this paper, we present a comprehensive, multimodal benchmark for cause-of-death classification using data from the Child Health and Mortality Prevention Surveillance (CHAMPS) network, a unique surveillance platform spanning nine countries across South Asia and Sub-Saharan Africa. Using this dataset, we introduce an evaluation framework designed to rigorously assess diagnostic reasoning, moving beyond traditional metrics that fail to capture complex clinical realities. We demonstrate the utility of this benchmark by evaluating pretrained large language models used through prompting, without task-specific fine-tuning, against supervised baselines across progressively richer evidence configurations. Our results reveal distinct differences in how these modeling approaches use unstructured medical evidence. This benchmark provides a rigorously defined resource for assessing clinical reasoning in next-generation mortality surveillance.
 
 ## Repository layout
 
